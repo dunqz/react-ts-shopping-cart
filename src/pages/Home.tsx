@@ -1,3 +1,10 @@
+import { Card, Container } from "react-bootstrap";
+import { HomeComponent } from "../components/dashboard/HomeComponent";
+
 export function Home() {
-  return <h1>Home</h1>
+  return (
+    <>
+      <HomeComponent />
+    </>
+  );
 }
