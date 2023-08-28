@@ -23,7 +23,6 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
     if (result) {
       setProduct(result.resultData);
     }
-    console.log(result);
   };
 
   return (

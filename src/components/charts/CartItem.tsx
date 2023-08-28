@@ -25,28 +25,6 @@ export function CartItem({ id, quantity }: CartItemProps) {
     if (result) {
       setProduct(result.resultData)
       console.log(result);
-      // const newData = result.resultData.map(async (item: any) => {
-      //   // Convert image to base64
-      //   if (item.image && item.image instanceof Blob) {
-      //     const reader = new FileReader();
-      //     reader.onloadend = () => {
-      //       item = {
-      //         ...item,
-      //         image: reader.result // Store the base64 image
-      //       };
-      //       console.log(item);
-      //       setProduct(prevProduct => [...prevProduct, item]); // Add the updated item to the product state
-      //     };
-      //     reader.readAsDataURL(item.image);
-      //   }
-      //   return item;
-      // });
-  
-      // // Wait for all image conversions to complete
-      // await Promise.all(newData);
-  
-      // // Set product state with the fetched data
-      // setProduct(result.resultData);
     }
   };
 

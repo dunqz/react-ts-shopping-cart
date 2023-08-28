@@ -20,10 +20,15 @@ export function StoreItem({ id, productName, price, image }: StoreItemProps) {
   } = useShoppingCart();
   const quantity = getItemQuantity(id);
 
-  console.log(image)
-
   return (
-    <Card className="h-100">
+    <Card
+      className="h-100"
+      style={{
+        backgroundColor: "rgba(20,30,40,.6)",
+        color: "#d2d8dd",
+        fontFamily: "Roboto, serif",
+      }}
+    >
       <Image
         src={`data:image/jpeg;base64,${image}`}
         height="200px"
@@ -32,7 +37,14 @@ export function StoreItem({ id, productName, price, image }: StoreItemProps) {
       <Card.Body className="d-flex flex-column">
         <Card.Title className="d-flex justify-content-between align-items-baseline mb-4">
           <span className="fs-2">{productName}</span>
-          <span className="ms-2 text-muted">{formatCurrency(price)}</span>
+          <span
+            style={{
+              fontFamily: "Roboto, serif",
+            }}
+            className="ms-2 text-muted"
+          >
+            {formatCurrency(price)}
+          </span>
         </Card.Title>
         <div className="mt-auto">
           {quantity === 0 ? (
