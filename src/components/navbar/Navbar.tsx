@@ -8,7 +8,7 @@ import {
 import { NavLink, useLocation } from "react-router-dom";
 import { useShoppingCart } from "../../context/ShoppingCartContext";
 import { motion as m } from "framer-motion";
-import { Tooltip,Button as Btn, Modal } from "antd";
+import { Tooltip, Button as Btn, Modal } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestion, faSign } from "@fortawesome/free-solid-svg-icons";
 import { Login } from "../account/Login";
@@ -34,7 +34,7 @@ const NavItem = ({ to, children }: NavItemProps) => {
   );
 };
 
-export function Navbar() {
+export function Navbar () {
   const { openCart, cartQuantity } = useShoppingCart();
   const [openLoginModal, setLoginModal] = useState(false);
   const location = useLocation();
@@ -107,23 +107,33 @@ export function Navbar() {
             </Button>
           )}
           <Tooltip placement="bottom" title="Sign in">
-          <Btn
-            icon={<FontAwesomeIcon icon={faQuestion}/>}
-            style={{ marginLeft:"20px" ,width: "3rem", height: "3rem", position: "relative" }}
-            className="rounded-circle"
-            onClick={handleShowLogin}
-          />
-          <Modal
-           style={{ padding: 0, margin: 0, width: "100%" }}
-           centered
-           open={openLoginModal}
-           onCancel={handleCLoseLogin}
-           footer={false}
-           width={500}
-           destroyOnClose
-           >
-            <Login/>
-          </Modal>
+            <Btn
+              icon={<FontAwesomeIcon icon={faQuestion} />}
+              style={{
+                marginLeft: "20px",
+                width: "3rem",
+                height: "3rem",
+                position: "relative",
+              }}
+              className="rounded-circle"
+              onClick={handleShowLogin}
+            />
+            <Modal
+              style={{
+                padding: 0,
+                margin: 0,
+                width: "100%",
+              }}
+              centered
+              open={openLoginModal}
+              onCancel={handleCLoseLogin}
+              footer={false}
+              width={650}
+              destroyOnClose
+
+            >
+              <Login />
+            </Modal>
           </Tooltip>
         </Container>
       </NavbarBs>

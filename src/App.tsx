@@ -7,15 +7,24 @@ import { Navbar } from "./components/navbar/Navbar"
 import { ShoppingCartProvider } from "./context/ShoppingCartContext"
 import { AnimatePresence } from "framer-motion"
 import { useEffect } from "react"
+import { ConfigProvider, theme } from "antd"
 
-function App() {
+const App:React.FC =()=> {
   const location = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
 
-  return (
+  return(
+    <ConfigProvider
+      theme={{
+        // 1. Use dark algorithm
+        algorithm: theme.darkAlgorithm,
+  
+        // 2. Combine dark algorithm and compact algorithm
+        // algorithm: [theme.darkAlgorithm, theme.compactAlgorithm],
+      }}>
     <ShoppingCartProvider>
       <Navbar />
       <AnimatePresence mode="wait">
@@ -28,6 +37,7 @@ function App() {
         </Container>
       </AnimatePresence>
     </ShoppingCartProvider>
+    </ConfigProvider>
   );
 }
 
