@@ -49,3 +49,10 @@ export function createProduct(product: any) {
       return e.data;
     });
 }
+
+
+//TODO: dapat ig click sa register ma close ang login, nya add ug back to login from register
+//      finish ang email verification set up
+//      update ang backend sa user
+
+//      use mobx to close login when register is open, vice-versa
