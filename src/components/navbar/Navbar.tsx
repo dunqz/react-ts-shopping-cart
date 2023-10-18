@@ -13,6 +13,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestion, faSign } from "@fortawesome/free-solid-svg-icons";
 import { Login } from "../account/Login";
 import { useState } from "react";
+import loginStore from "../../store/loginStore";
+import { observer } from "mobx-react";
+import { Register } from "../account/Register";
 
 type NavItemProps = {
   to: any;
@@ -34,9 +37,10 @@ const NavItem = ({ to, children }: NavItemProps) => {
   );
 };
 
-export function Navbar () {
+export const Navbar = observer(() => {
   const { openCart, cartQuantity } = useShoppingCart();
   const [openLoginModal, setLoginModal] = useState(false);
+  const [openRegisterModal, setRegisterModal] = useState(false);
   const location = useLocation();
 
   const handleCLoseLogin = () => {
@@ -130,7 +134,6 @@ export function Navbar () {
               footer={false}
               width={650}
               destroyOnClose
-
             >
               <Login />
             </Modal>
@@ -139,4 +142,4 @@ export function Navbar () {
       </NavbarBs>
     </m.div>
   );
-}
+});

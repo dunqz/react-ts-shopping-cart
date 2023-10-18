@@ -13,7 +13,6 @@ export const Login = observer(() => {
 
   const handleOpenRegister = () => {
     setRegisterModal(true);
-    loginStore.setIsRegisterOpen(true);
   };
 
   const handleCloseRegister = () => {
@@ -21,8 +20,9 @@ export const Login = observer(() => {
   };
 
   const handleOnFinish = async (values:any) =>{
-    //add login
-    loginStore.setIsLogin(true)
+
+    //para ma close ang login na modal
+    loginStore.setIsLogin(false)
     console.log("login")
   }
 
@@ -104,9 +104,9 @@ export const Login = observer(() => {
             footer={false}
             open={registerModal}
             onCancel={handleCloseRegister}
-            closable={false}
             centered
             width={650}
+            destroyOnClose
           >
             <Register />
           </Modal>

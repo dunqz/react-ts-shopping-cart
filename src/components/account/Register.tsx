@@ -9,17 +9,7 @@ import loginStore from "../../store/loginStore";
 export function Register() {
   const [form] = Form.useForm();
   const [openLogin, setOpenLogin] = useState(false);
-
-  const handleLoginPage = () => {
-    setOpenLogin(true);
-    loginStore.setIsLogin(true);
-    loginStore.setIsRegisterOpen(false);
-  };
-  const handleCloseLogin = () =>{
-    setOpenLogin(false);
-    loginStore.setIsLogin(false);
-  }
-
+  
   const handleOnFinish = async (values: any) => {
     try {
       console.log(values);
@@ -138,25 +128,28 @@ export function Register() {
             <Button form="form2" htmlType="submit" style={{width:"150px"}}>
               Create Account
             </Button>
-            <span style={{ marginTop: "15px" }}>
+
+            {/* <span style={{ marginTop: "15px" }}>
               Already have an account? Go back to{" "}
               <a onClick={handleLoginPage} style={{ color: "purple" }}>
               Login
               </a>
-            </span>
-            <Modal
+            </span> */}
+            {/* <Modal
             footer={false}
             open={openLogin}
             onCancel={handleCloseLogin}
             closable={false}
             centered
-            width={650}
+            width={650} 
           >
             <Login />
-          </Modal>
+          </Modal> */}
           </div>
         </Form>
       </div>
     </div>
   );
 }
+
+// TODO: add a button to nagivagate to login modal
