@@ -13,9 +13,13 @@ export function getAllProduct() {
     });
 }
 
-export function uploadImage(image: any, productName: string) {
+export function uploadImage(image: FormData, productName: string) {
   return axiosInstance
-    .post(`/${PRODUCT}/upload/${productName}`, image)
+    .post(`/${PRODUCT}/upload/${productName}`, image, {
+      headers: {
+        "Content-Type": "multipart/form-data", // Ensure this header is set
+      },
+    })
     .then((response: any) => {
       return response.data;
     })
@@ -24,6 +28,7 @@ export function uploadImage(image: any, productName: string) {
     });
 }
 
+//Resolved [org.springframework.web.multipart.support.MissingServletRequestPartException: Required request part 'image' is not present]
 export function addProduct(formData: FormData) {
   return axiosInstance
     .post(`/${PRODUCT}/addproduct`, formData, {

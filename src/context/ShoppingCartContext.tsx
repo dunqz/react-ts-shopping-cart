@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useContext, useState } from "react"
 import { ShoppingCart } from "../components/shop/ShoppingCart"
 import { useLocalStorage } from "../hooks/useLocalStorage"
+import { Button } from "react-bootstrap"
 
 type ShoppingCartProviderProps = {
   children: ReactNode
@@ -18,6 +19,7 @@ type ShoppingCartContext = {
   increaseCartQuantity: (id: number) => void
   decreaseCartQuantity: (id: number) => void
   removeFromCart: (id: number) => void
+  clearCart: () => void;
   cartQuantity: number
   cartItems: CartItem[]
 }
@@ -80,6 +82,10 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     })
   }
 
+  function clearCart(){
+    setCartItems([]);//clears the cart
+  }
+
   return (
     <ShoppingCartContext.Provider
       value={{
@@ -91,6 +97,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
         closeCart,
         cartItems,
         cartQuantity,
+        clearCart,
       }}
     >
       {children}

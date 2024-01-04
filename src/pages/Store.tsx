@@ -2,7 +2,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { StoreItem } from "../components/shop/StoreItem";
 import { useEffect, useState } from "react";
 import { getAllProduct } from "../service/product/product";
-import { Button, Modal } from "antd";
+import { Button, Carousel, Image, Modal } from "antd";
 import { AddItem } from "../components/add-item/AddItem";
 
 export function Store() {
@@ -33,22 +33,22 @@ export function Store() {
   return (
     <>
       <Container>
+        <Button onClick={showModalAddItem} style={{ marginBottom: "20px" }}>
+          Add Item
+        </Button>
+        <Modal
+          style={{ padding: 0, margin: 0, width: "100%" }}
+          centered
+          open={addItem}
+          onCancel={handleCancelAddItemModal}
+          footer={false}
+          width={1100}
+          destroyOnClose
+        >
+          <AddItem />
+        </Modal>
         {product.length != 0 ? (
           <>
-            <Button onClick={showModalAddItem} style={{ marginBottom: "20px" }}>
-              Add Item
-            </Button>
-            <Modal
-              style={{ padding: 0, margin: 0, width: "100%" }}
-              centered
-              open={addItem}
-              onCancel={handleCancelAddItemModal}
-              footer={false}
-              width={1000}
-              destroyOnClose
-            >
-              <AddItem />
-            </Modal>
             <Row md={2} xs={1} lg={3} className="g-3">
               {product.map((item: any) => (
                 <Col key={item.id}>

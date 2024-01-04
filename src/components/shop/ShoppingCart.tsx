@@ -5,13 +5,14 @@ import { CartItem } from "../charts/CartItem";
 import storeItems from "../../data/items.json";
 import { useEffect, useState } from "react";
 import { getAllProduct } from "../../service/product/product";
+import { Button } from "antd";
 
 type ShoppingCartProps = {
   isOpen: boolean;
 };
 
 export function ShoppingCart({ isOpen }: ShoppingCartProps) {
-  const { closeCart, cartItems } = useShoppingCart();
+  const { closeCart, cartItems, clearCart } = useShoppingCart();
   const [product, setProduct] = useState<any[]>([]);
 
   useEffect(() => {
@@ -24,6 +25,17 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
       setProduct(result.resultData);
     }
   };
+
+  const handleBuyClick = async ()=>{
+    try {
+      
+      alert('Purchase successful! Thank you for shopping!');
+      clearCart();
+
+    } catch (error) {
+      console.error('Error completing purchase:', error);
+    }
+  }
 
   return (
     <Offcanvas show={isOpen} onHide={closeCart} placement="end">
@@ -44,6 +56,7 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
               }, 0)
             )}
           </div>
+          <Button onClick={handleBuyClick}>BUY</Button> 
         </Stack>
       </Offcanvas.Body>
     </Offcanvas>
