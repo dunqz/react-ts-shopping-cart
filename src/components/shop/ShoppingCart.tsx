@@ -29,6 +29,7 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
   const handleBuyClick = async ()=>{
     try {
       
+      console.log(cartItems);
       alert('Purchase successful! Thank you for shopping!');
       clearCart();
 

@@ -24,7 +24,6 @@ export function CartItem({ id, quantity }: CartItemProps) {
     const result = await getAllProduct();
     if (result) {
       setProduct(result.resultData)
-      console.log(result);
     }
   };
 
