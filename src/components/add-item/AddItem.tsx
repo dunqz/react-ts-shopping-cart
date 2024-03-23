@@ -7,6 +7,8 @@ import {
   Form,
   Image,
   Input,
+  Radio,
+  RadioChangeEvent,
   Row,
   Upload,
   message,
@@ -27,11 +29,17 @@ export const AddItem = () => {
   const [upload, setUpload] = useState<any>("");
   const [prodIsCreated, setProdIsCreated] = useState(false);
   const [form] = Form.useForm();
+  const [classify, setClassify] = useState<string>("");
+  
 
   const handleOnFinish = async (values: any) => {
-    try {
-      console.log(values);
-      const result = await createProduct(values);
+    try { 
+      const newValues = {
+        classify,
+        ...values
+      }
+      console.log(newValues);
+      const result = await createProduct(newValues);
       if (result) {
         setProdIsCreated(true);
         console.log(result);
@@ -211,6 +219,7 @@ export const AddItem = () => {
             form={form}
             autoComplete="off"
             onFinish={handleOnFinish}
+            initialValues={{ seller: 'Admin1' }}
           >
             <Form.Item noStyle>
               <span style={{ fontFamily: "Roboto, sans-serif" }}>
@@ -244,7 +253,7 @@ export const AddItem = () => {
                 },
               ]}
             >
-              <Input />
+              <Input disabled/>
             </Form.Item>
             <Form.Item noStyle>
               <span style={{ fontFamily: "Roboto, sans-serif" }}>Stock</span>
@@ -280,6 +289,16 @@ export const AddItem = () => {
             >
               <Input />
             </Form.Item>
+            <Form.Item noStyle>
+              <span style={{ fontFamily: "Roboto, sans-serif"}}>Telescope Type:</span>
+            </Form.Item>
+            <Form.Item style={{paddingTop:"5px"}}  rules={[{required: true},]}>
+                  <Radio.Group onChange={(e)=>{setClassify(e.target.value)}}>
+                    <Radio.Button value="refractor">Refractor Type</Radio.Button>
+                    <Radio.Button value="reflector">Reflector Type</Radio.Button>
+                    <Radio.Button value="cassegrains">Cassegrains Type</Radio.Button>
+                  </Radio.Group>
+              </Form.Item>
             <Button
               onClick={() => {
                 alert("Items successfully added");

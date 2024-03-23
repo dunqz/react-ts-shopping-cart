@@ -4,7 +4,7 @@ import { formatCurrency } from "../../utilities/formatCurrency";
 import { CartItem } from "../charts/CartItem";
 import storeItems from "../../data/items.json";
 import { useEffect, useState } from "react";
-import { getAllProduct } from "../../service/product/product";
+import { buyProduct, getAllProduct } from "../../service/product/product";
 import { Button } from "antd";
 
 type ShoppingCartProps = {
@@ -30,7 +30,13 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
     try {
       
       console.log(cartItems);
-      alert('Purchase successful! Thank you for shopping!');
+      const result = await buyProduct(cartItems);
+      if(result){
+        alert('Purchase successful! Thank you for shopping!');
+      }else{
+        alert('Purchase unsuccessful! Product is out of stock');
+      }
+      
       clearCart();
 
     } catch (error) {

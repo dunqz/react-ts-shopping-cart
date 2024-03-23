@@ -2,16 +2,25 @@ import { Button, Card } from "react-bootstrap";
 import { useShoppingCart } from "../../context/ShoppingCartContext";
 import { formatCurrency } from "../../utilities/formatCurrency";
 import { useEffect, useState } from "react";
-import { Image } from "antd";
+import { Divider, Image } from "antd";
 
 type StoreItemProps = {
   id: number;
   productName: string;
   price: number;
   image: string;
+  classify: string;
+  seller: string;
 };
 
-export function StoreItem({ id, productName, price, image }: StoreItemProps) {
+export function StoreItem({
+  id,
+  productName,
+  price,
+  image,
+  classify,
+  seller,
+}: StoreItemProps) {
   const {
     getItemQuantity,
     increaseCartQuantity,
@@ -27,6 +36,7 @@ export function StoreItem({ id, productName, price, image }: StoreItemProps) {
         backgroundColor: "rgba(20,30,40,.6)",
         color: "#d2d8dd",
         fontFamily: "Roboto, serif",
+        width: "320px",
       }}
     >
       <Image
@@ -37,6 +47,32 @@ export function StoreItem({ id, productName, price, image }: StoreItemProps) {
       <Card.Body className="d-flex flex-column">
         <Card.Title className="d-flex justify-content-between align-items-baseline mb-4">
           <span className="fs-2">{productName}</span>
+        </Card.Title>
+        <Divider style={{ margin: 0, marginBottom: "5px", padding: 0 }} />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            margin: 0,
+            padding: 0,
+          }}
+        >
+          <span
+            className="ms-2 text-muted"
+            style={{
+              fontFamily: "Roboto, serif",
+            }}
+          >
+            Telescope Type: {classify}
+          </span>
+          <span
+            className="ms-2 text-muted"
+            style={{
+              fontFamily: "Roboto, serif",
+            }}
+          >
+            Seller: {seller}
+          </span>
           <span
             style={{
               fontFamily: "Roboto, serif",
@@ -45,7 +81,8 @@ export function StoreItem({ id, productName, price, image }: StoreItemProps) {
           >
             {formatCurrency(price)}
           </span>
-        </Card.Title>
+        </div>
+        <Divider style={{ marginTop: "5px", padding: 0 }} />
         <div className="mt-auto">
           {quantity === 0 ? (
             <Button className="w-100" onClick={() => increaseCartQuantity(id)}>

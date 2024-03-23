@@ -10,12 +10,13 @@ import { useShoppingCart } from "../../context/ShoppingCartContext";
 import { motion as m } from "framer-motion";
 import { Tooltip, Button as Btn, Modal } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faQuestion, faSign } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faQuestion, faSign } from "@fortawesome/free-solid-svg-icons";
 import { Login } from "../account/Login";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import loginStore from "../../store/loginStore";
 import { observer } from "mobx-react";
 import { Register } from "../account/Register";
+import { AddItem } from "../add-item/AddItem";
 
 type NavItemProps = {
   to: any;
@@ -37,11 +38,19 @@ const NavItem = ({ to, children }: NavItemProps) => {
   );
 };
 
+
 export const Navbar = observer(() => {
+  const location = useLocation();
   const { openCart, cartQuantity } = useShoppingCart();
   const [openLoginModal, setLoginModal] = useState(false);
   const [openRegisterModal, setRegisterModal] = useState(false);
-  const location = useLocation();
+  const [addItem, setAddItem] = useState(false);
+  const [showSecondPanel, setShowSecondPanel] = useState(location.pathname == '/store');
+  
+  useEffect(() => {
+    // Update showSecondPanel state when the location changes
+    setShowSecondPanel(location.pathname === '/store');
+  }, [location]);
 
   const handleCLoseLogin = () => {
     setLoginModal(false);
@@ -51,13 +60,21 @@ export const Navbar = observer(() => {
     setLoginModal(true);
   };
 
+  const handleCancelAddItemModal = () => {
+    setAddItem(false);
+  };
+
+  const showModalAddItem = () => {
+    setAddItem(true);
+  };
+
   return (
     <m.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 2 }}
       transition={{ duration: 3, ease: "easeIn" }}
     >
-      <NavbarBs sticky="top" className="bg-dark shadow-sm mb-5">
+      <NavbarBs sticky="top" className="bg-dark shadow-sm">
         <Container>
           <div style={{ marginRight: "3rem" }}>
             <Image
@@ -70,13 +87,13 @@ export const Navbar = observer(() => {
           </div>
           <Nav className="me-auto">
             <NavItem to="/">
-              <h4 style={{ color: "white" }}>Home</h4>
+              <h4 style={{ color: "white" }} onClick={()=>setShowSecondPanel(false)} >Home</h4>
             </NavItem>
             <NavItem to="/store">
-              <h4 style={{ color: "white" }}>Store</h4>
+              <h4 style={{ color: "white" }} onClick={()=>setShowSecondPanel(true)} >Store</h4>
             </NavItem>
             <NavItem to="/about">
-              <h4 style={{ color: "white" }}>About</h4>
+              <h4 style={{ color: "white" }} onClick={()=>setShowSecondPanel(false)} >About</h4>
             </NavItem>
           </Nav>
           {cartQuantity > 0 && (
@@ -140,6 +157,32 @@ export const Navbar = observer(() => {
           </Tooltip>
         </Container>
       </NavbarBs>
+      {showSecondPanel && (
+           <NavbarBs sticky="top" className="bg-transparent shadow-lg mb-5">
+           <Container>
+             <Btn
+               onClick={showModalAddItem}
+               icon={<FontAwesomeIcon icon={faPlus}/>}
+               style={{
+                 marginLeft: "120px",
+               }}
+             >
+               Add Item{" "}
+             </Btn>
+             <Modal
+             style={{ padding: 0, margin: 0, width: "100%" }}
+             centered
+             open={addItem}
+             onCancel={handleCancelAddItemModal}
+             footer={false}
+             width={1100}
+             destroyOnClose
+           >
+             <AddItem />
+           </Modal>
+           </Container>
+         </NavbarBs>
+      )}
     </m.div>
   );
 });

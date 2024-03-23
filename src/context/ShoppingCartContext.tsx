@@ -19,6 +19,7 @@ type CartItem = {
   seller: string;
   id: number;
   quantity: number;
+  classify: string;
 };
 
 type ShoppingCartContext = {
@@ -76,10 +77,10 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
         return currItems; // Return current items if the selected item is not found
       }
   
-      const { productName, seller } = selectedItem;
+      const { productName, seller, classify } = selectedItem;
   
       if (currItems.find(item => item.id === id) == null) {
-        return [...currItems, { productName, seller, id, quantity: 1 }];
+        return [...currItems, { classify, productName, seller, id, quantity: 1 }];
       } else {
         return currItems.map(item => {
           if (item.id === id) {

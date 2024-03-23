@@ -16,24 +16,25 @@ export function Store() {
 
   const loadProduct = async () => {
     const result: any = await getAllProduct();
+    // console.log(result)
     if (result) {
       setProduct(result.resultData);
     }
     console.log(result);
   };
 
-  const handleCancelAddItemModal = () => {
-    setAddItem(false);
-  };
+  // const handleCancelAddItemModal = () => {
+  //   setAddItem(false);
+  // };
 
-  const showModalAddItem = () => {
-    setAddItem(true);
-  };
+  // const showModalAddItem = () => {
+  //   setAddItem(true);
+  // };
 
   return (
     <>
       <Container>
-        <Button onClick={showModalAddItem} style={{ marginBottom: "20px" }}>
+        {/* <Button onClick={showModalAddItem} style={{ marginBottom: "20px" }}>
           Add Item
         </Button>
         <Modal
@@ -46,7 +47,7 @@ export function Store() {
           destroyOnClose
         >
           <AddItem />
-        </Modal>
+        </Modal> */}
         {product.length != 0 ? (
           <>
             <Row md={2} xs={1} lg={3} className="g-3">

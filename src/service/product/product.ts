@@ -55,6 +55,16 @@ export function createProduct(product: any) {
     });
 }
 
+export function buyProduct(product: any) {
+  return axiosInstance
+    .put(`/${PRODUCT}/buy`, product)
+    .then((response: any) => {
+      return response.data;
+    })
+    .catch((e) => {
+      return e.data;
+    });
+}
 
 //TODO: dapat ig click sa register ma close ang login, nya add ug back to login from register
 //      finish ang email verification set up
