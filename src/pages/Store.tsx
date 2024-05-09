@@ -23,11 +23,11 @@ export function Store() {
   useEffect(() => {
     loadProduct();
     setShowSecondPanel(location.pathname === "/store");
-  }, [location, searchText, classificationFilter]);
+  }, [location, searchText, classificationFilter, priceFilter]);
 
   const loadProduct = async () => {
     try {
-      const result = await getFilterStoreItem({ productName: searchText, classify: classificationFilter });
+      const result = await getFilterStoreItem({ productName: searchText, classify: classificationFilter, order: priceFilter });
       if (result) {
         setProduct(result.resultData);
       } 
@@ -58,6 +58,7 @@ export function Store() {
 
   const handlePriceFilter = (value: string) => {
     setPriceFilter(value);
+    loadProduct();
   };
 
   const handleResetFilters = () => {
@@ -105,7 +106,7 @@ export function Store() {
             style={{ marginLeft: "5px", width: "250px" }}
             onChange={handleClassificationFilter}
             options={[
-              { value: "reflection", label: "reflection" },
+              { value: "reflector", label: "reflector" },
               { value: "refractor", label: "refractor"},
               { value: "cassegrains", label:"cassegrains" },
             ]}
