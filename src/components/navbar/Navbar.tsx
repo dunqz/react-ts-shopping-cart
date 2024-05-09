@@ -44,13 +44,6 @@ export const Navbar = observer(() => {
   const { openCart, cartQuantity } = useShoppingCart();
   const [openLoginModal, setLoginModal] = useState(false);
   const [openRegisterModal, setRegisterModal] = useState(false);
-  const [addItem, setAddItem] = useState(false);
-  const [showSecondPanel, setShowSecondPanel] = useState(location.pathname == '/store');
-  
-  useEffect(() => {
-    // Update showSecondPanel state when the location changes
-    setShowSecondPanel(location.pathname === '/store');
-  }, [location]);
 
   const handleCLoseLogin = () => {
     setLoginModal(false);
@@ -58,14 +51,6 @@ export const Navbar = observer(() => {
 
   const handleShowLogin = () => {
     setLoginModal(true);
-  };
-
-  const handleCancelAddItemModal = () => {
-    setAddItem(false);
-  };
-
-  const showModalAddItem = () => {
-    setAddItem(true);
   };
 
   return (
@@ -87,13 +72,13 @@ export const Navbar = observer(() => {
           </div>
           <Nav className="me-auto">
             <NavItem to="/">
-              <h4 style={{ color: "white" }} onClick={()=>setShowSecondPanel(false)} >Home</h4>
+              <h4 style={{ color: "white" }}>Home</h4>
             </NavItem>
             <NavItem to="/store">
-              <h4 style={{ color: "white" }} onClick={()=>setShowSecondPanel(true)} >Store</h4>
+              <h4 style={{ color: "white" }}>Store</h4>
             </NavItem>
             <NavItem to="/about">
-              <h4 style={{ color: "white" }} onClick={()=>setShowSecondPanel(false)} >About</h4>
+              <h4 style={{ color: "white" }}>About</h4>
             </NavItem>
           </Nav>
           {cartQuantity > 0 && (
@@ -157,32 +142,6 @@ export const Navbar = observer(() => {
           </Tooltip>
         </Container>
       </NavbarBs>
-      {showSecondPanel && (
-           <NavbarBs sticky="top" className="bg-transparent shadow-lg mb-5">
-           <Container>
-             <Btn
-               onClick={showModalAddItem}
-               icon={<FontAwesomeIcon icon={faPlus}/>}
-               style={{
-                 marginLeft: "120px",
-               }}
-             >
-               Add Item{" "}
-             </Btn>
-             <Modal
-             style={{ padding: 0, margin: 0, width: "100%" }}
-             centered
-             open={addItem}
-             onCancel={handleCancelAddItemModal}
-             footer={false}
-             width={1100}
-             destroyOnClose
-           >
-             <AddItem />
-           </Modal>
-           </Container>
-         </NavbarBs>
-      )}
     </m.div>
   );
 });

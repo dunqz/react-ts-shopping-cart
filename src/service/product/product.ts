@@ -13,6 +13,24 @@ export function getAllProduct() {
     });
 }
 
+export function getFilterStoreItem(requestOptions :any) {
+  // Convert classify to a single value if it's an array
+  if (Array.isArray(requestOptions.classify)) {
+    requestOptions.classify = requestOptions.classify[0];
+  }
+
+  return axiosInstance
+    .get(`/${PRODUCT}/filter`, {
+      params: requestOptions,
+    })
+    .then((response: any) => {
+      return response.data;
+    })
+    .catch((e) => {
+      return e.data;
+    });
+}
+
 export function uploadImage(image: FormData, productName: string) {
   return axiosInstance
     .post(`/${PRODUCT}/upload/${productName}`, image, {
